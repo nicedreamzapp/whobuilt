@@ -63,7 +63,13 @@ if exposed as an environment variable. TODO-VERIFY: not tested.
 
 ## Does it have tests?
 
-Not yet. The README lists this under known limits.
+Yes. An offline `unittest` suite lives in `tests/` and needs nothing installed:
+
+    python3 -m unittest discover -s tests -t . -v
+
+Registry and GitHub calls are faked, and the suite blocks the network so a missing mock
+fails loudly. GitHub Actions runs it on Python 3.12, 3.13 and 3.14 for every push and pull
+request.
 
 ## What license is it under?
 

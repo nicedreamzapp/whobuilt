@@ -1,5 +1,7 @@
 # whobuilt
 
+[![ci](https://github.com/nicedreamzapp/whobuilt/actions/workflows/ci.yml/badge.svg)](https://github.com/nicedreamzapp/whobuilt/actions/workflows/ci.yml)
+
 **Write a credits file that names the people, not just the packages.**
 
 `whobuilt` is a command-line tool that reads a project's dependency files and writes a
@@ -112,6 +114,17 @@ cd whobuilt && python3 -m whobuilt /path/to/your/project
 
 Run it from inside the clone. There is no `pip install` package yet.
 
+## Tests
+
+```
+python3 -m unittest discover -s tests -t . -v
+```
+
+Standard library `unittest`, no installs. Every registry and GitHub call is faked and the
+suite blocks the network, so it runs offline in well under a second. CI runs it on Python
+3.12, 3.13 and 3.14 on every push and pull request
+([`.github/workflows/ci.yml`](.github/workflows/ci.yml)).
+
 ## Options
 
 ```
@@ -123,7 +136,6 @@ Run it from inside the clone. There is no `pip install` package yet.
 
 ## Known limits
 
-- **No tests** in the repo yet.
 - **Rate limits look like gaps.** If GitHub is unreachable or you run out of anonymous
   requests, there is no error message. The affected projects just land under
   *"couldn't trace these"*.
