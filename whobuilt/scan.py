@@ -47,15 +47,23 @@ def from_pyproject(path):
     out = []
     # dependencies = [ "foo>=1", ... ] — deliberately not adding a TOML dependency
     # to a tool whose whole point is being honest about dependencies.
-    for block in re.findall(r"dependencies\s*=\s*\[(.*?)\]", txt, re.S):
+    # Quoted strings are skipped whole, so the "]" in "uvicorn[standard]" can't end the list.
+    for block in re.findall(r"""dependencies\s*=\s*\[((?:"[^"]*"|'[^']*'|[^\]"'])*)\]""",
+                            txt, re.S):
         for m in re.findall(r'"([^"]+)"|\'([^\']+)\'', block):
             n = _norm(m[0] or m[1])
             if n:
                 out.append(n)
-    for m in re.findall(r'^\s*([A-Za-z0-9_.-]+)\s*=\s*["\{]', txt, re.M):
-        if m.lower() not in ("python", "name", "version", "description", "readme",
-                             "requires-python", "license", "authors"):
-            out.append(m.lower())
+    # Poetry-style tables, `name = "^1.0"` — only inside a [...dependencies] table, so
+    # build-backend, [project.urls] and [project.scripts] keys aren't taken for packages.
+    tables = re.findall(r"^\[([^\]\n]+)\][^\n]*\n(.*?)(?=^\[|\Z)", txt, re.M | re.S)
+    for header, body in tables:
+        if not header.strip().endswith("dependencies"):
+            continue
+        for m in re.findall(r'^\s*([A-Za-z0-9_.-]+)\s*=\s*["\{]', body, re.M):
+            if m.lower() not in ("python", "name", "version", "description", "readme",
+                                 "requires-python", "license", "authors"):
+                out.append(m.lower())
     return out
 
 
@@ -126,7 +134,7 @@ def git_slug(d):
     if not m:
         return None
     g = re.search(r"github\.com[:/]+([^/\s]+)/([^/\s]+)", m.group(1))
-    return f"{g.group(1)}/{re.sub(r'.git$', '', g.group(2))}" if g else None
+    return f"{g.group(1)}/{re.sub(r'\.git$', '', g.group(2))}" if g else None
 
 
 HF_SNAPSHOT = re.compile(r"models--([^/]+)--([^/]+)/snapshots/[0-9a-f]{6,}")

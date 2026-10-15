@@ -1,0 +1,32 @@
+name: ci
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    strategy:
+      fail-fast: false
+      matrix:
+        # 3.12 is the minimum (resolve.py has a backslash inside an f-string).
+        python-version: ["3.12", "3.13", "3.14"]
+    steps:
+      - uses: actions/checkout@v4.2.2
+      - uses: actions/setup-python@v5.3.0
+        with:
+          python-version: ${{ matrix.python-version }}
+      # Standard library only: nothing to install. The tests block the network.
+      - name: Unit tests
+        run: python -m unittest discover -s tests -t . -v
+      - name: Smoke test, whobuilt on its own repo
+        run: python -m whobuilt .

@@ -83,7 +83,7 @@ own GitHub profile. It does not read emails or commit metadata.
 - Language: Python 3.12 or newer, standard library only, no third-party dependencies.
 - Size: three source files in `whobuilt/` (`__main__.py`, `resolve.py`, `scan.py`).
 - License: MIT.
-- Tests: none in the repository yet.
+- Tests: offline `unittest` suite in `tests/`, run by CI on Python 3.12, 3.13 and 3.14.
 - Packaging: not on PyPI. Run it from a clone. See [Install](install.md).
 
 [Install it](install.md){ .md-button .md-button--primary }
