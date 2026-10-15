@@ -23,15 +23,9 @@ without third-party libraries.
 | File | How it is read |
 |---|---|
 | `requirements.txt`, `requirements*.txt` | One name per line. Comments are stripped. Lines starting with `-`, `http`, `git+` or `.` are skipped. The name is cut at the first `<`, `>`, `=`, `!`, `~`, `;`, `[` or space and lowercased. |
-| `pyproject.toml` | Regular expressions, not a TOML parser. Every quoted string inside any `dependencies = [ ... ]` block is taken. In addition, every line that looks like `name = "..."` or `name = {` is taken as a dependency name (this is meant for Poetry-style tables) unless the key is `python`, `name`, `version`, `description`, `readme`, `requires-python`, `license` or `authors`. |
+| `pyproject.toml` | Regular expressions, not a TOML parser. Every quoted string inside any `dependencies = [ ... ]` block is taken (brackets inside a string, as in `uvicorn[standard]`, don't end the block). In addition, inside any table whose header ends in `dependencies` (Poetry-style, such as `[tool.poetry.dependencies]`), every line that looks like `name = "..."` or `name = {` is taken as a dependency name unless the key is `python`, `name`, `version`, `description`, `readme`, `requires-python`, `license` or `authors`. |
 | `package.json` | Keys of `dependencies` and `peerDependencies`. `devDependencies` and `optionalDependencies` are not read. Invalid JSON is skipped. |
 | `Cargo.toml` | Keys in the `[dependencies]` table only. |
-
-!!! warning "Stray names from pyproject.toml"
-    Because of the second `pyproject.toml` rule, a standard `[build-system]` table with
-    `build-backend = "setuptools.build_meta"` adds a dependency called `build-backend`.
-    This was reproduced while writing these docs. It then shows up under "Couldn't trace
-    these". Keys like `homepage = "..."` in `[project.urls]` would do the same.
 
 ### Nested git checkouts
 

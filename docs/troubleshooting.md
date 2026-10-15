@@ -1,6 +1,6 @@
 ---
 title: whobuilt troubleshooting - empty credits, untraced packages, SyntaxError
-description: Fixes for common whobuilt problems. Everything under "Couldn't trace these", nobody named, SyntaxError on Python 3.11, "No dependencies found", "not a directory", and stray names like build-backend.
+description: Fixes for common whobuilt problems. Everything under "Couldn't trace these", nobody named, SyntaxError on Python 3.11, "No dependencies found", and "not a directory".
 ---
 
 # Troubleshooting
@@ -70,13 +70,6 @@ The full lists are on [Configuration](configuration.md).
 
 The path argument must be an existing folder. Pass the project folder, not a single file
 like `requirements.txt`.
-
-## A dependency called `build-backend` (or `homepage`) appears
-
-`pyproject.toml` is read with regular expressions, and any `key = "value"` line outside
-a short list of known keys is taken as a dependency name. A standard `[build-system]`
-table adds `build-backend`. Delete the line from the generated file. See
-[How it works](how-it-works.md#1-scan-the-project-scanpy).
 
 ## The "Guessed from imports" section names the wrong project
 

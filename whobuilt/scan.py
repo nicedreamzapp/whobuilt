@@ -54,10 +54,16 @@ def from_pyproject(path):
             n = _norm(m[0] or m[1])
             if n:
                 out.append(n)
-    for m in re.findall(r'^\s*([A-Za-z0-9_.-]+)\s*=\s*["\{]', txt, re.M):
-        if m.lower() not in ("python", "name", "version", "description", "readme",
-                             "requires-python", "license", "authors"):
-            out.append(m.lower())
+    # Poetry-style tables, `name = "^1.0"` — only inside a [...dependencies] table, so
+    # build-backend, [project.urls] and [project.scripts] keys aren't taken for packages.
+    tables = re.findall(r"^\[([^\]\n]+)\][^\n]*\n(.*?)(?=^\[|\Z)", txt, re.M | re.S)
+    for header, body in tables:
+        if not header.strip().endswith("dependencies"):
+            continue
+        for m in re.findall(r'^\s*([A-Za-z0-9_.-]+)\s*=\s*["\{]', body, re.M):
+            if m.lower() not in ("python", "name", "version", "description", "readme",
+                                 "requires-python", "license", "authors"):
+                out.append(m.lower())
     return out
 
 

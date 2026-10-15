@@ -93,6 +93,33 @@ class PyprojectTest(TempProject):
             """)
         self.assertEqual(scan.from_pyproject(p), ["numpy", "torch"])
 
+    def test_other_tables_do_not_add_stray_names(self):
+        # Regression: any `key = "..."` line counted as a dependency, so a standard
+        # pyproject.toml added build-backend, homepage and script names.
+        p = self.write("pyproject.toml", """\
+            [build-system]
+            requires = ["hatchling"]
+            build-backend = "hatchling.build"
+
+            [project]
+            name = "demo"
+            dependencies = ["mlx"]
+
+            [project.urls]
+            Homepage = "https://example.com"
+            Source = "https://github.com/o/demo"
+
+            [project.scripts]
+            demo = "demo.cli:main"
+
+            [tool.ruff]
+            target-version = "py312"
+
+            [tool.poetry.group.dev.dependencies]
+            pytest = "^8"
+            """)
+        self.assertEqual(scan.from_pyproject(p), ["mlx", "pytest"])
+
     def test_no_dependencies(self):
         p = self.write("pyproject.toml", '[project]\nname = "demo"\nversion = "1"\n')
         self.assertEqual(scan.from_pyproject(p), [])
