@@ -1,0 +1,61 @@
+site_name: whobuilt
+site_description: >-
+  whobuilt is a small Python command-line tool that reads your project's dependency
+  files and writes a CREDITS.md naming the people behind each dependency, not just
+  the packages.
+site_author: Matt Macosko
+# Placeholder. Change if the site moves to a custom domain.
+site_url: https://nicedreamzapp.github.io/whobuilt/
+repo_url: https://github.com/nicedreamzapp/whobuilt
+repo_name: nicedreamzapp/whobuilt
+edit_uri: edit/main/docs/
+copyright: Copyright &copy; 2026 Matt Macosko / Nice Dreamz LLC. MIT License.
+
+theme:
+  name: material
+  features:
+    - content.code.copy
+    - navigation.footer
+    - navigation.instant
+    - search.suggest
+    - toc.follow
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+
+plugins:
+  - search
+  - social
+  # The sitemap (sitemap.xml) is built into MkDocs and is written whenever
+  # site_url is set, so it needs no plugin entry.
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.highlight
+  - pymdownx.inlinehilite
+  - pymdownx.superfences
+  - pymdownx.details
+
+nav:
+  - Home: index.md
+  - Install: install.md
+  - Quickstart: quickstart.md
+  - Configuration: configuration.md
+  - How it works: how-it-works.md
+  - Troubleshooting: troubleshooting.md
+  - FAQ: faq.md
+  - Changelog: changelog.md
+  - Credits: credits.md
