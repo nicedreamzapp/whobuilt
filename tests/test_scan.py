@@ -141,6 +141,15 @@ class GitSlugTest(TempProject):
                 self.git_checkout(f"c{i}", url)
                 self.assertEqual(scan.git_slug(os.path.join(self.root, f"c{i}")), want)
 
+    def test_repo_name_ending_in_git_letters(self):
+        # Regression: the ".git" suffix strip used an unescaped dot, so "legit" became "l".
+        for i, (url, want) in enumerate({
+                "https://github.com/someone/legit": "someone/legit",
+                "https://github.com/someone/digit.git": "someone/digit"}.items()):
+            with self.subTest(url=url):
+                self.git_checkout(f"g{i}", url)
+                self.assertEqual(scan.git_slug(os.path.join(self.root, f"g{i}")), want)
+
     def test_non_github_remote(self):
         self.git_checkout("c", "https://gitlab.com/a/b.git")
         self.assertIsNone(scan.git_slug(os.path.join(self.root, "c")))

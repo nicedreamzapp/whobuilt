@@ -126,7 +126,7 @@ def git_slug(d):
     if not m:
         return None
     g = re.search(r"github\.com[:/]+([^/\s]+)/([^/\s]+)", m.group(1))
-    return f"{g.group(1)}/{re.sub(r'.git$', '', g.group(2))}" if g else None
+    return f"{g.group(1)}/{re.sub(r'\.git$', '', g.group(2))}" if g else None
 
 
 HF_SNAPSHOT = re.compile(r"models--([^/]+)--([^/]+)/snapshots/[0-9a-f]{6,}")
