@@ -47,7 +47,9 @@ def from_pyproject(path):
     out = []
     # dependencies = [ "foo>=1", ... ] — deliberately not adding a TOML dependency
     # to a tool whose whole point is being honest about dependencies.
-    for block in re.findall(r"dependencies\s*=\s*\[(.*?)\]", txt, re.S):
+    # Quoted strings are skipped whole, so the "]" in "uvicorn[standard]" can't end the list.
+    for block in re.findall(r"""dependencies\s*=\s*\[((?:"[^"]*"|'[^']*'|[^\]"'])*)\]""",
+                            txt, re.S):
         for m in re.findall(r'"([^"]+)"|\'([^\']+)\'', block):
             n = _norm(m[0] or m[1])
             if n:

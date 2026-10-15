@@ -64,6 +64,21 @@ class PyprojectTest(TempProject):
             """)
         self.assertEqual(scan.from_pyproject(p), ["mlx", "mlx-lm", "requests"])
 
+    def test_extras_do_not_end_the_list(self):
+        # Regression: the "]" closing an extra like uvicorn[standard] used to be taken as
+        # the end of the dependencies list, so every dependency in it was lost.
+        p = self.write("pyproject.toml", """\
+            [project]
+            name = "demo"
+            dependencies = [
+                "uvicorn[standard]>=0.20",
+                "numpy",
+                'mlx-lm[train]',
+                "fastapi",
+            ]
+            """)
+        self.assertEqual(scan.from_pyproject(p), ["uvicorn", "numpy", "mlx-lm", "fastapi"])
+
     def test_poetry_style_tables(self):
         p = self.write("pyproject.toml", """\
             [tool.poetry]
