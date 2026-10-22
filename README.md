@@ -12,13 +12,16 @@ python3 -m whobuilt .          # print it
 python3 -m whobuilt . --write  # save it as CREDITS.md
 ```
 
+<picture><source media="(max-width: 610px), (min-width: 768px) and (max-width: 895px)" srcset="https://raw.githubusercontent.com/nicedreamzapp/whobuilt/main/assets/readme/s01-banner-m.svg"><source media="(max-width: 1149px)" srcset="https://raw.githubusercontent.com/nicedreamzapp/whobuilt/main/assets/readme/s01-banner-mid.svg"><img src="https://raw.githubusercontent.com/nicedreamzapp/whobuilt/main/assets/readme/s01-banner.svg" width="100%" alt="01. What it does. Credits that name the people, not just the packages"></picture>
+<picture><source media="(max-width: 610px), (min-width: 768px) and (max-width: 895px)" srcset="https://raw.githubusercontent.com/nicedreamzapp/whobuilt/main/assets/readme/s01-r1-m.svg"><source media="(max-width: 1149px)" srcset="https://raw.githubusercontent.com/nicedreamzapp/whobuilt/main/assets/readme/s01-r1-mid.svg"><img src="https://raw.githubusercontent.com/nicedreamzapp/whobuilt/main/assets/readme/s01-r1.svg" width="100%" alt="Reads your manifests. Then keeps going: registry, source repository, and the humans with the most commits. Writes a credits page. Markdown, naming the top human contributors behind each dependency."></picture>
+
 Every credits file in the world lists packages. Packages didn't write themselves.
 
 `whobuilt` reads the same manifests everyone else reads, then keeps going — package
 registry, source repository, and finally the handful of humans with the most commits in
 it. Those names go in your credits.
 
-## What comes out
+### What comes out
 
 ```markdown
 ## Python
@@ -37,7 +40,10 @@ otherwise. (Excerpt, trimmed for reading. The real file links every name to its 
 profile; see `render()` in [`whobuilt/__main__.py`](whobuilt/__main__.py). For what a run
 with no dependencies looks like, see this repo's own [CREDITS.md](CREDITS.md).)
 
-## What I built
+<img src="https://raw.githubusercontent.com/nicedreamzapp/whobuilt/main/assets/readme/s01-rule.svg" width="100%" alt="">
+
+<picture><source media="(max-width: 610px), (min-width: 768px) and (max-width: 895px)" srcset="https://raw.githubusercontent.com/nicedreamzapp/whobuilt/main/assets/readme/s02-banner-m.svg"><source media="(max-width: 1149px)" srcset="https://raw.githubusercontent.com/nicedreamzapp/whobuilt/main/assets/readme/s02-banner-mid.svg"><img src="https://raw.githubusercontent.com/nicedreamzapp/whobuilt/main/assets/readme/s02-banner.svg" width="100%" alt="02. What I built. About 520 lines of standard-library Python, three files"></picture>
+<picture><source media="(max-width: 610px), (min-width: 768px) and (max-width: 895px)" srcset="https://raw.githubusercontent.com/nicedreamzapp/whobuilt/main/assets/readme/s02-r1-m.svg"><source media="(max-width: 1149px)" srcset="https://raw.githubusercontent.com/nicedreamzapp/whobuilt/main/assets/readme/s02-r1-mid.svg"><img src="https://raw.githubusercontent.com/nicedreamzapp/whobuilt/main/assets/readme/s02-r1.svg" width="100%" alt="Manifest scanner. Parses requirements, pyproject, package.json and Cargo.toml with no extra libraries. Resolver. Package to registry to GitHub repo to the top 4 human contributors, bots filtered out. CLI and renderer. Options, 8 parallel lookups, and the Markdown output."></picture>
 
 Written by Matt Macosko. About 520 lines of standard-library Python, three files:
 
@@ -55,7 +61,12 @@ Written by Matt Macosko. About 520 lines of standard-library Python, three files
 Upstream, not mine: the PyPI, npm, crates.io, GitHub REST and Hugging Face Hub APIs, and
 Python's standard library. [CREDITS.md](CREDITS.md) says so.
 
-## Why
+<img src="https://raw.githubusercontent.com/nicedreamzapp/whobuilt/main/assets/readme/s02-rule.svg" width="100%" alt="">
+
+<picture><source media="(max-width: 610px), (min-width: 768px) and (max-width: 895px)" srcset="https://raw.githubusercontent.com/nicedreamzapp/whobuilt/main/assets/readme/s03-banner-m.svg"><source media="(max-width: 1149px)" srcset="https://raw.githubusercontent.com/nicedreamzapp/whobuilt/main/assets/readme/s03-banner-mid.svg"><img src="https://raw.githubusercontent.com/nicedreamzapp/whobuilt/main/assets/readme/s03-banner.svg" width="100%" alt="03. Why, and how it stays honest. What it reads, what it guesses, what it shows"></picture>
+<picture><source media="(max-width: 610px), (min-width: 768px) and (max-width: 895px)" srcset="https://raw.githubusercontent.com/nicedreamzapp/whobuilt/main/assets/readme/s03-r1-m.svg"><source media="(max-width: 1149px)" srcset="https://raw.githubusercontent.com/nicedreamzapp/whobuilt/main/assets/readme/s03-r1-mid.svg"><img src="https://raw.githubusercontent.com/nicedreamzapp/whobuilt/main/assets/readme/s03-r1.svg" width="100%" alt="Guesses are quarantined. Import-based names go in a separate section to check before you publish. Failures are visible. Anything it cannot trace is listed, not silently dropped. Public data only. GitHub handles and the display name someone chose to publish."></picture>
+
+### Why
 
 I spent an afternoon hand-writing credits pages for twenty-eight repositories, and the
 thing that struck me was how invisible everyone is by default. Open a hundred projects and
@@ -64,7 +75,7 @@ everything actually rests on are nowhere.
 
 It's also completely mechanical, which is the annoying part. So here.
 
-## What it reads
+### What it reads
 
 - `requirements*.txt`, `pyproject.toml` → PyPI → GitHub
 - `package.json` → npm → GitHub
@@ -73,7 +84,7 @@ It's also completely mechanical, which is the annoying part. So here.
 - Hugging Face cache folders (`models--org--name/snapshots/...`), credited to their author
 - **no manifest at all?** it falls back to reading your `import` statements
 
-## The honesty part
+### The honesty part
 
 A tool for crediting people that credits the *wrong* people is worse than nothing. Two
 things follow from that.
@@ -88,20 +99,25 @@ would be wrong, so it never gets stated as fact.
 under *"couldn't trace these"*, described as a gap in the tool rather than a judgement about
 the work. No silent omissions.
 
-## Privacy
+### Privacy
 
 Public profile data only: GitHub handles, and the display name someone chose to publish
 about themselves. No emails, no commit metadata, nothing scraped, nothing a maintainer
 hasn't already put on their own profile page.
 
-## GitHub token
+<img src="https://raw.githubusercontent.com/nicedreamzapp/whobuilt/main/assets/readme/s03-rule.svg" width="100%" alt="">
+
+<picture><source media="(max-width: 610px), (min-width: 768px) and (max-width: 895px)" srcset="https://raw.githubusercontent.com/nicedreamzapp/whobuilt/main/assets/readme/s04-banner-m.svg"><source media="(max-width: 1149px)" srcset="https://raw.githubusercontent.com/nicedreamzapp/whobuilt/main/assets/readme/s04-banner-mid.svg"><img src="https://raw.githubusercontent.com/nicedreamzapp/whobuilt/main/assets/readme/s04-banner.svg" width="100%" alt="04. Use it. Token, install, tests and options"></picture>
+<picture><source media="(max-width: 610px), (min-width: 768px) and (max-width: 895px)" srcset="https://raw.githubusercontent.com/nicedreamzapp/whobuilt/main/assets/readme/s04-r1-m.svg"><source media="(max-width: 1149px)" srcset="https://raw.githubusercontent.com/nicedreamzapp/whobuilt/main/assets/readme/s04-r1-mid.svg"><img src="https://raw.githubusercontent.com/nicedreamzapp/whobuilt/main/assets/readme/s04-r1.svg" width="100%" alt="Nothing to install. Python 3.12+, standard library only. Token optional. Uses GITHUB_TOKEN or GH_TOKEN, or borrows the one gh already has. Offline tests. Every registry and GitHub call is faked; the suite runs in under a second."></picture>
+
+### GitHub token
 
 Anonymous GitHub API access is 60 requests an hour, which one medium project burns through
 immediately — you'd get a credits file with nobody in it. `whobuilt` uses `$GITHUB_TOKEN`
 (or `$GH_TOKEN`) if set, and otherwise borrows the token `gh` already has. If you have the GitHub CLI
 installed and logged in, there's nothing to configure.
 
-## Install
+### Install
 
 There's nothing to install. Python 3.12+, standard library only. (It needs 3.12:
 `whobuilt/resolve.py` uses a backslash inside an f-string, which older versions reject
@@ -114,7 +130,7 @@ cd whobuilt && python3 -m whobuilt /path/to/your/project
 
 Run it from inside the clone. There is no `pip install` package yet.
 
-## Tests
+### Tests
 
 ```
 python3 -m unittest discover -s tests -t . -v
@@ -125,7 +141,7 @@ suite blocks the network, so it runs offline in well under a second. CI runs it 
 3.12, 3.13 and 3.14 on every push and pull request
 ([`.github/workflows/ci.yml`](.github/workflows/ci.yml)).
 
-## Options
+### Options
 
 ```
 --write          save to CREDITS.md instead of printing
@@ -134,7 +150,12 @@ suite blocks the network, so it runs offline in well under a second. CI runs it 
 --max N          cap on dependencies resolved (default 60)
 ```
 
-## Known limits
+<img src="https://raw.githubusercontent.com/nicedreamzapp/whobuilt/main/assets/readme/s04-rule.svg" width="100%" alt="">
+
+<picture><source media="(max-width: 610px), (min-width: 768px) and (max-width: 895px)" srcset="https://raw.githubusercontent.com/nicedreamzapp/whobuilt/main/assets/readme/s05-banner-m.svg"><source media="(max-width: 1149px)" srcset="https://raw.githubusercontent.com/nicedreamzapp/whobuilt/main/assets/readme/s05-banner-mid.svg"><img src="https://raw.githubusercontent.com/nicedreamzapp/whobuilt/main/assets/readme/s05-banner.svg" width="100%" alt="05. Known limits and license. Honest gaps, MIT"></picture>
+<picture><source media="(max-width: 610px), (min-width: 768px) and (max-width: 895px)" srcset="https://raw.githubusercontent.com/nicedreamzapp/whobuilt/main/assets/readme/s05-r1-m.svg"><source media="(max-width: 1149px)" srcset="https://raw.githubusercontent.com/nicedreamzapp/whobuilt/main/assets/readme/s05-r1-mid.svg"><img src="https://raw.githubusercontent.com/nicedreamzapp/whobuilt/main/assets/readme/s05-r1.svg" width="100%" alt="Rate limits look like gaps. Affected projects land under couldn&#x27;t trace these. MIT. Use it on anything."></picture>
+
+### Known limits
 
 - **Rate limits look like gaps.** If GitHub is unreachable or you run out of anonymous
   requests, there is no error message. The affected projects just land under
@@ -146,11 +167,12 @@ suite blocks the network, so it runs offline in well under a second. CI runs it 
   people named.
 - `--max` keeps the first N dependencies found, not the most important ones.
 
-## License
+### License
 
 MIT. Use it on anything.
 
----
 
 If `whobuilt` credited you and got something wrong — your name, your role, or the project
 itself — open an issue. Getting that right is the entire point.
+
+<img src="https://raw.githubusercontent.com/nicedreamzapp/whobuilt/main/assets/readme/s05-rule.svg" width="100%" alt="">
