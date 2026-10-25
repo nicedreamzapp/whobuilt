@@ -6,9 +6,7 @@ description: Credits for whobuilt. The PyPI, npm, crates.io, GitHub and Hugging 
 # Credits
 
 whobuilt was written by Matt Macosko and is published under the MIT License by Matt
-Macosko / Nice Dreamz LLC. The git history shows parts of the code and README were
-written with [Claude Code](https://claude.com/claude-code) by Anthropic (commits are
-co-authored by Claude).
+Macosko / Nice Dreamz LLC.
 
 ## What the program relies on
 
